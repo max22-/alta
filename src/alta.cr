@@ -1,5 +1,6 @@
 require "./parser"
 require "./types"
+require "./code_gen"
 
 if ARGV.size != 1
   puts "usage: #{PROGRAM_NAME} file.alta"
@@ -10,4 +11,10 @@ file_name = ARGV[0]
 source = File.read file_name
 
 parser = Parser.new file_name, source
-parser.program.each {|r| puts r }
+ast = parser.parse
+ast.each {|r| puts r }
+
+puts StackSymbol.counter
+puts SimpleSymbol.counter
+
+puts CodeGen.new(ast).generate

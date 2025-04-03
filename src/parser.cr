@@ -79,7 +79,7 @@ class Interned
     @@interned = {} of String => Int32
     @@counter = 0
     @value : String
-
+    
     def initialize(@value)
         if !@@interned.has_key? @value
             @@interned[@value] = @@counter
@@ -89,6 +89,10 @@ class Interned
 
     def interned
         @@interned[@value]
+    end
+
+    def Interned.counter
+        @@counter
     end
 
 end
@@ -205,7 +209,7 @@ class Parser
         Rule.new lhs, rhs
     end
 
-    def program
+    def parse
         rules = [] of Rule
         while @look.type != TokenType::EOF
             rules << rule
