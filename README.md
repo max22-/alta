@@ -24,4 +24,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Maxime ANDRÉ](https://github.com/your-github-user) - creator and maintainer
+- [Maxime ANDRÉ](https://github.com/max22-) - creator and maintainer
