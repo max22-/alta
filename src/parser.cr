@@ -75,13 +75,13 @@ class Lexer
 
 end
 
-class AltaSymbol
+class Interned
     @@interned = {} of String => Int32
     @@counter = 0
     @value : String
 
     def initialize(@value)
-        if !@interned.has_key? @value
+        if !@@interned.has_key? @value
             @@interned[@value] = @@counter
             @@counter += 1
         end
@@ -91,6 +91,45 @@ class AltaSymbol
         @@interned[@value]
     end
 
+end
+
+class StackSymbol < Interned
+    def to_s(io : IO)
+        io << "Stack(\"#{@value}\", #{@@interned[@value]})"
+    end
+end
+
+class SimpleSymbol < Interned
+    def to_s(io : IO)
+        io << "Symbol(\"#{@value}\", #{@@interned[@value]})"
+    end
+end
+
+class Side
+    @value = [] of {StackSymbol, SimpleSymbol}
+    getter :value
+
+    def <<(stack_and_symbol)
+        @value << stack_and_symbol
+    end
+
+    def to_s(io : IO)
+        io << @value.map{ |e| "#{e[0].to_s}: #{e[1].to_s}" }.join(", ")
+    end
+end
+
+class Rule
+    @lhs : Side
+    @rhs : Side
+    getter :lhs
+    getter :rhs
+
+    def initialize(@lhs, @rhs)
+    end
+
+    def to_s(io : IO)
+        io << "| #{@lhs} | #{@rhs}"
+    end
 end
 
 class ParseError < Exception
@@ -125,7 +164,7 @@ class Parser
                 column += 1
             end
         }
-        raise ParseError.new @file_name, {0, 0}, "unreachable"
+        raise Exception.new "unreachable"
     end
 
     def advance
@@ -143,11 +182,11 @@ class Parser
         stack = match TokenType::Symbol
         match TokenType::Colon
         symbol = match TokenType::Symbol
-        {stack, symbol}
+        {StackSymbol.new(stack.value), SimpleSymbol.new(symbol.value)}
     end
 
     def side
-        result = [] of {Token, Token}
+        result = Side.new
         if @look.type == TokenType::Symbol
             result << stack_and_symbol
             while @look.type == TokenType::Comma
@@ -163,11 +202,15 @@ class Parser
         lhs = side
         match TokenType::VerticalBar
         rhs = side
-        {lhs, rhs}
+        Rule.new lhs, rhs
     end
 
     def program
-        rule
+        rules = [] of Rule
+        while @look.type != TokenType::EOF
+            rules << rule
+        end
+        rules
     end
 
 end
