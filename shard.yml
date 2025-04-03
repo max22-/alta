@@ -1,0 +1,13 @@
+name: alta
+version: 0.1.0
+
+authors:
+  - Maxime ANDRÉ <maxime.andre1986@gmail.com>
+
+targets:
+  mira:
+    main: src/alta.cr
+
+crystal: '>= 1.15.1'
+
+license: MIT

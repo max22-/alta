@@ -1,0 +1,9 @@
+Lightning struck $a_place,
+$a_thing is at $a_place?,
+$a_thing has $some_item?,
+$some_item is conductive?:
+    $a_thing is struck by Lightning.
+
+$a_thing is struck by $striker,
+$striker deals $damage damage?:
+    $a_thhing is hit for $damage damage.
