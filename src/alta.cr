@@ -17,4 +17,4 @@ ast.each {|r| puts r }
 puts StackSymbol.counter
 puts SimpleSymbol.counter
 
-puts CodeGen.new(ast).generate
+File.write "output.c", CodeGen.new(ast).generate

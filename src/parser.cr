@@ -96,6 +96,14 @@ class Interned
         @@counter
     end
 
+    def Interned.get_name(interned_symbol)
+        begin
+            return @@interned.key_for interned_symbol
+        rescue ex : IndexError
+            raise Exception.new "unreachable"
+        end
+    end
+
 end
 
 class StackSymbol < Interned
