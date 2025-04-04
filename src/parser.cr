@@ -79,6 +79,7 @@ class Interned
     @@interned = {} of String => Int32
     @@counter = 0
     @value : String
+    getter :value
     
     def initialize(@value)
         if !@@interned.has_key? @value

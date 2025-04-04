@@ -27,4 +27,4 @@
 |I've seen: bar| present: bar
 |I've seen: baz| present: baz
 
-|| present: baz
+|| present: baz, search for: foo, search for: bar, search for: baz
