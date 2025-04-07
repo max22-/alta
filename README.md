@@ -1,4 +1,4 @@
-# mira
+# Alta
 
 TODO: Write a description here
 
@@ -8,7 +8,12 @@ TODO: Write installation instructions here
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+crystal build src/alta.cr
+./alta examples/some_example.alta
+cd output
+make run
+```
 
 ## Development
 
