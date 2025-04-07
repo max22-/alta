@@ -39,7 +39,7 @@ static void stack_underflow() {
 Stack stack_new(void)
 {
     Stack stack;
-    stack.items = (unsigned int*)malloc(DEFAULT_STACK_SIZE * sizeof(interned_symbol));
+    stack.items = (interned_symbol*)malloc(DEFAULT_STACK_SIZE * sizeof(interned_symbol));
     if(!stack.items) alloc_failed();
     stack.ptr = 0;
     stack.capacity = DEFAULT_STACK_SIZE;
@@ -48,7 +48,7 @@ Stack stack_new(void)
 
 static void stack_grow(Stack *stack) {
     unsigned int new_capacity = 2 * stack->capacity;
-    stack->items = (unsigned int*)realloc(stack->items, new_capacity * sizeof(interned_symbol));
+    stack->items = (interned_symbol*)realloc(stack->items, new_capacity * sizeof(interned_symbol));
     if(!stack->items) alloc_failed();
     stack->capacity = new_capacity;
 }
