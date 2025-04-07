@@ -1,0 +1,19 @@
+| main: dup | 
+    dup: do_dup
+
+| main: 1, dup: do_dup |
+    dup: do_dup, temp1: 1, temp2: 1
+
+| main: ., dup: do_dup |
+    temp1: ., temp2: .
+
+| temp1: 1 | 
+    main: 1
+| temp1: . |
+    main: .
+| temp2: 1 |
+    main: 1
+| temp2: . |
+    main: .
+
+|| main: ., main: 1, main: 1, main: 1, main: 1, main: dup
