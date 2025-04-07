@@ -12,9 +12,5 @@ source = File.read file_name
 
 parser = Parser.new file_name, source
 ast = parser.parse
-ast.each {|r| puts r }
 
-puts StackSymbol.counter
-puts SimpleSymbol.counter
-
-File.write "output.c", CodeGen.new(ast).generate
+File.write "output/output.c", CodeGen.new(ast).generate
